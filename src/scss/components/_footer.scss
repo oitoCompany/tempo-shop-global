@@ -1,0 +1,22 @@
+footer {
+  
+  font-size: 14px;
+  text-align: center;
+  padding: 32px;
+  position: fixed;
+  bottom: 0px;
+  margin-bottom: calc(100% - 100%);
+  width: 100%;
+  color: $gray-light;
+  background: $gray-dark-bg;
+  strong {
+    color: $gray-medium;
+  }
+  .footer-links {
+    margin-bottom: 24px;
+    a {
+      margin: 0 8px;
+      color: $gray-medium;
+    }
+  }
+}

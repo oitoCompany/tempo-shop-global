@@ -1,0 +1,120 @@
+
+@import url('https://fonts.googleapis.com/css?family=Assistant');
+
+html,
+body,
+ul,
+ol {
+  font-family: "Oswald" sans-serif !important;
+  margin: 0;
+  padding: 0;
+}
+.mybutton{
+  background-color: plum !important;
+}
+.mydiv:hover .mybutton{
+  background-color: pink;
+}
+body {
+  font-family: Assistant;
+  font-size: 16px;
+  color: $gray-dark;
+  background: $gray-light-bg;
+}
+* {
+  box-sizing: border-box;
+}
+::selection {
+  background: $primary-blue;
+  color: $white;
+}
+::-moz-selection {
+  background: $primary-blue;
+  color: $white;
+  text-shadow: none;
+}
+// Number Input Styles
+input[type="number"] {
+  -moz-appearance: textfield;
+  margin: 0;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+// Searchbox Styles
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+strong {
+  font-weight: 700;
+}
+a {
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+}
+ul {
+  list-style: none;
+}
+button {
+  border-radius: 2px;
+  text-align: center;
+  color: $white;
+  background: $primary-blue;
+  border: 0;
+  font-weight: 400;
+  font-family: Assistant;
+  font-size: inherit;
+  cursor: pointer;
+ 
+  &:focus {
+    outline: none;
+  }
+ 
+}
+
+input,
+select {
+  font-size: inherit;
+  font-family: Assistant;
+}
+
+
+button {
+  border-radius: 2px;
+  text-align: center;
+  color: $white;
+  background-color: $primary-blue;
+  border: 0;
+  font-weight: 400;
+  background-repeat: no-repeat;
+  padding: 0 16px;
+  background-position-x: 50%;
+  background-size: 20% 90%;
+  font-family: Assistant;
+  font-size: large;
+  cursor: pointer;
+}
+
+
+.mybutton{
+  background-color: green ; 
+  position: absolute ;
+  transform: translate(100%, 100%) ;
+  // background: lighten($primary-blue, 10%);
+  cursor: pointer;
+}
+.mydiv:hover .mybutton{
+  background-color: pink;
+}

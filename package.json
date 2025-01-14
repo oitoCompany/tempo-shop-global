@@ -1,0 +1,78 @@
+{
+  "name": "react-shopping-cart",
+  "version": "0.1.0",
+  "description": "Simple react shopping cart without using redux",
+  "main": "main.js",
+  "scripts": {
+    "proxy": "node proxy.js",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build"
+  },
+  "keywords": [
+    "reactjs",
+    "shopping",
+    "cart"
+  ],
+  "author": "Sivadass",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "i18next": "^19.3.4",
+    "i18next-browser-languagedetector": "^4.0.2",
+    "i18next-xhr-backend": "^3.2.2",
+    "prop-types": "^15.5.10",
+    "react": "^16.13.0",
+    "react-burger-menu": "^2.6.13",
+    "react-custom-scrollbars": "^4.1.1",
+    "react-dom": "^16.13.0",
+    "react-i18next": "^11.3.4",
+    "react-pdf": "^4.2.0",
+    "react-pdf-to-image": "^1.0.2",
+    "react-scripts": "^4.0.0",
+    "react-transition-group": "^1.1.2",
+    "sass": "^1.79.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^8.6.2",
+    "babel-core": "^6.26.3",
+  
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "cors-anywhere": "^0.4.3",
+    "css-loader": "^0.28.11",
+  
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.1.0",
+    "json-loader": "^0.5.7",
+    "mini-css-extract-plugin": "^0.4.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "postcss-loader": "^2.1.5",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.0.7",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.1.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
