@@ -296,12 +296,12 @@ const handleSearchClick = () => {
                   <CartScrollBar>{view}</CartScrollBar>
                   <div className="action-block">
                     <div onClick={handlecreateOrder} className={cartItems.length > 0 ? "divBTNAdd" : " divBTNAdd disabled"}>
-                      {/* onClick={handleOpenCart} */}
+                      {/* onClick={handleOpenCart}onClick={handlecreateOrder}  */}
                       {cartItems.length > 0 &&
                         <span > ₪{total.toFixed(2)}</span>
                       }
                       {/* <span className="btnAddText">מעבר לסל</span> */}
-                      <span onClick={handlecreateOrder}  className="btnAddText">סיום הזמנה</span>
+                      <span   className="btnAddText">סיום הזמנה</span>
                     </div>
                   </div>
                 </div>
