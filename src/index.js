@@ -73,12 +73,28 @@ export default function App() {
     const [txtOrderNum, settxtOrderNum] = useState("");
     const [isEnableBTN, setisEnableBTN] = useState(false);
     const [isPower, setisPower] = useState(false);
-    const [Categoriestosend,setCategoriestosend] = useState([]);
+    const [Categoriestosend, setCategoriestosend] = useState([]);
     const zakot = [
+        {
+            "CATEGORY": "W",
+            "YDESC": "חיוב יינות ברקן",
+            "QTY": 4.50,
+            "NIZUL_CODE": "0739",
+            "PERCENTAGE": 0,
+            "KUNNR": "0000609015"
+        },
+        {
+            "CATEGORY": "P",
+            "YDESC": "חיוב משקאות פרנו",
+            "QTY": 12.00,
+            "NIZUL_CODE": "0740",
+            "PERCENTAGE": 0,
+            "KUNNR": "0000609013"
+        },
         {
             "CATEGORY": "B",
             "YDESC": "ניצול תלושי ב",
-            "QTY": 7.50,
+            "QTY": 4.00,
             "NIZUL_CODE": "9Q73",
             "PERCENTAGE": 0,
             "KUNNR": "0000609011"
@@ -86,7 +102,7 @@ export default function App() {
         {
             "CATEGORY": "A",
             "YDESC": "ניצול תלושי א",
-            "QTY": 12.00,
+            "QTY": 30.00,
             "NIZUL_CODE": "9QT3",
             "PERCENTAGE": 1.00,
             "KUNNR": "0000609001"
@@ -4330,7 +4346,7 @@ export default function App() {
         //BUILD
         // axios.post("/zui5/order/catalog").then(response => {
         //   console.log(response);
-        //     setCatalog(response.data["CATALOG"]);
+        //     //setCatalog(response.data["CATALOG"]);
         //     setproducts(response.data["CATALOG"]);
         // });
 
@@ -4426,11 +4442,11 @@ export default function App() {
     //     console.log("Clearing states...");
     //     setisCartWinVisible(false);  
     //     setcart((cart) => []); // מנקה את הסל
-    //     setCatalog((Catalog) => []);
+    //     //setCatalog((Catalog) => []);
     //     setproducts((product) => []);
-        
+
     //     // setcart([]);
-    //     // setCatalog([]); // Ensure this triggers a re-render.       
+    //     // //setCatalog([]); // Ensure this triggers a re-render.       
     //     // setproducts([]); // Products depend on Catalog.
     //     setloading(false);
     //     settotalAmount(0);
@@ -4448,7 +4464,7 @@ export default function App() {
         console.log("Clearing states...");
         setisCartWinVisible(false);
         setcart([]);
-        // setCatalog([]);
+        // //setCatalog([]);
         // setproducts([]);
         setcategories([]);
         setloading(false);
@@ -4460,18 +4476,18 @@ export default function App() {
         setlogOut(false);
         setcategoriesList([]);
         setisPower(true);
-      
+
         // וודא שנמנעת טעינה מחודשת של API
         console.log("Cleared states:", { cart, Catalog, products, categories });
     };
-    
+
     // useEffect(() => {
     //     // console.log("Cart updated:", cart);
     //     // console.log("Catalog updated:", Catalog);
     //     // console.log("Products updated:", products);
     //     handelShowCart();
     // }, [cart]);
-    
+
 
 
     const closeCreateOrderModal = () => {
@@ -4495,11 +4511,11 @@ export default function App() {
     useEffect(() => {
         getCancelAuth();
         getCategories();
-          getProducts();
+        getProducts();
         getCatalog();
         handelShowCart();
     }, [cart]);
-    
+
 
 
     let curProductId;
@@ -4532,52 +4548,52 @@ export default function App() {
 
         handleCategory(event._targetInst.key);
 
-     
+
         let updatedCategoriesToSend = [...Categoriestosend];
 
         // If the category is not present, add it; otherwise, remove it
         const categoryExists = updatedCategoriesToSend.some(
-          (category) => category.LOW === value
+            (category) => category.LOW === value
         );
-        
+
         if (!categoryExists) {
-          updatedCategoriesToSend = [
-            ...updatedCategoriesToSend,
-            { SIGN: "I", OPTION: "EQ", LOW: value }
-          ];
+            updatedCategoriesToSend = [
+                ...updatedCategoriesToSend,
+                { SIGN: "I", OPTION: "EQ", LOW: value }
+            ];
         } else {
-          updatedCategoriesToSend = updatedCategoriesToSend.filter(
-            (category) => category.LOW !== value
-          );
+            updatedCategoriesToSend = updatedCategoriesToSend.filter(
+                (category) => category.LOW !== value
+            );
         }
-        
+
         // Remove duplicates in updatedCategoriesToSend
         updatedCategoriesToSend = updatedCategoriesToSend.filter(
-          (category, index, self) =>
-            self.findIndex((c) => c.LOW === category.LOW) === index
+            (category, index, self) =>
+                self.findIndex((c) => c.LOW === category.LOW) === index
         );
-        
+
         // Now updatedCategoriesToSend will have no duplicates and will append/remove categories as needed
         setCategoriestosend(updatedCategoriesToSend);
-        
+
         // Construct the payload with the updated categories
         const payload = {
             CATEGORY: updatedCategoriesToSend,
             SEARCH: term,
         };
-    
+
         console.log("Payload:", payload);
-       
-            if(updatedCategoriesToSend.length > 0){
+
+        if (updatedCategoriesToSend.length > 0) {
             const categoryLowValues = updatedCategoriesToSend.map(category => category.LOW);
-             const filteredData =   data.filter(product => categoryLowValues.includes(product.YCODE_CAT));
-        setCatalog(filteredData);
-        setproducts(filteredData);
-            }
-            else{
-                setCatalog(data);
-                setproducts(data);
-            }
+            const filteredData = data.filter(product => categoryLowValues.includes(product.YCODE_CAT));
+            //setCatalog(filteredData);
+            setproducts(filteredData);
+        }
+        else {
+            //setCatalog(data);
+            setproducts(data);
+        }
         // Send the request
         // axios
         //     .post("/zui5/order/catalog", JSON.stringify(payload))
@@ -4590,7 +4606,7 @@ export default function App() {
         //         console.error("Error:", error);
         //     });
     };
-    
+
 
 
     const handleClearSearch = () => {
@@ -4605,15 +4621,15 @@ export default function App() {
     const handleSearch = (event) => {
         setterm(event);
         setswSearchingFor("term");
-        if(event !== ""){
-       let response = Catalog.filter(product => product.EAN11.includes(event) || product.MAKTX.includes(event));
-      
-        setCatalog(response)
-        setproducts(response);
-    
+        if (event !== "") {
+            let response = Catalog.filter(product => product.EAN11.includes(event) || product.MAKTX.includes(event));
+
+            //setCatalog(response)
+            setproducts(response);
+
         }
-        else{
-            setCatalog(data);
+        else {
+            //setCatalog(data);
             setproducts(data);
         }
 
@@ -4629,7 +4645,7 @@ export default function App() {
         //         }
         //         // setmessage(response.data["MESSAGE"])
         //     });
-       
+
 
         // let add = handleAddToCartDigit(event.target.value);
         // if(add){
@@ -4638,9 +4654,9 @@ export default function App() {
         // }
         //handleAddToCart(handleAddToCartDigit(event.target.value)) 
         // handelShowCart();
-      
+
     }
-  
+
     const handleMobileSearch = () => {
         setterm("");
     }
@@ -4663,7 +4679,7 @@ export default function App() {
             cartItem.push(selectedProducts);
         }
         cartItem.sort(a => a.eligibility);
-       setcart(cartItem.sort(compare));
+        setcart(cartItem.sort(compare));
         setcartBounce(true);
 
         setTimeout(
@@ -4709,7 +4725,8 @@ export default function App() {
     const handleRemoveProduct = (e, id, matnr, eligibility) => {
         let index = cart.findIndex(x => x.id == id && x.eligibility === eligibility);
         let quentity = cart[index].quantity;
-        Eligibility.filter(a => a.CATEGORY === cart[index].eligibility)[0].QTY += Number(Catalog[Object.keys(Catalog).filter(a => Catalog[a].EAN11 === id && Catalog[a].MATNR == matnr)].KPEIN * quentity);
+        let kepin = Catalog[Object.keys(Catalog).filter(a => Catalog[a].EAN11 === id && Catalog[a].MATNR == matnr)];
+        Eligibility.filter(a => a.CATEGORY === cart[index].eligibility)[0].QTY += (Number(kepin.KPEIN) * quentity);
         cart.splice(index, 1);
         setcart(cart);
         sumTotalItems(cart);
@@ -4807,11 +4824,11 @@ export default function App() {
     const decrement = (e, p) => {
         e.preventDefault();
 
-        
+
 
         let index = cart.findIndex(x => x.id === p.id);
         if (index >= 0 && cart[index].quantity > 1) {
-            
+
             cart[index].quantity--;
             sumTotalAmount(cart);
             setcart(cart);
@@ -4829,8 +4846,8 @@ export default function App() {
         let currProduct = Catalog[Object.keys(Catalog).filter(a => Catalog[a].EAN11 === product.id && Catalog[a].MATNR == product.matnr)];
         CurrentProduct_l = currProduct;
 
-           let empzakot = zakot.findIndex(a => a.CATEGORY === product.eligibility);
-           let countTo = zakot[empzakot].QTY;
+        let empzakot = zakot.findIndex(a => a.CATEGORY === product.eligibility);
+        let countTo = zakot[empzakot].QTY;
         // let empzakot = employees["ZAKAUT"].filter(a => a.CATEGORY === product.eligibility)[0].QTY;
         let count = Eligibility.filter(a => a.CATEGORY === product.eligibility)[0].QTY;
         const Text = Eligibility.filter(a => a.CATEGORY === product.eligibility)[0].CATEGORY;
@@ -4847,14 +4864,14 @@ export default function App() {
 
             let index = cart.findIndex(x => x.id == product.id && x.eligibility === product.eligibility);
             let quentity = cart[index].quantity;
-           // Eligibility.filter(a => a.CATEGORY === cart[index].eligibility)[0].QTY += Number(Catalog[Object.keys(Catalog).filter(a => Catalog[a].EAN11 === product.id && Catalog[a].MATNR == product.matnr)].KPEIN * quentity);
-           if (empzakot - 1 > count) {
-            Eligibility.filter(a => a.CATEGORY === Text)[0].QTY += CurrentProduct_l.KPEIN;
-         }
+            // Eligibility.filter(a => a.CATEGORY === cart[index].eligibility)[0].QTY += Number(Catalog[Object.keys(Catalog).filter(a => Catalog[a].EAN11 === product.id && Catalog[a].MATNR == product.matnr)].KPEIN * quentity);
+            if (empzakot - 1 > count) {
+                Eligibility.filter(a => a.CATEGORY === Text)[0].QTY += CurrentProduct_l.KPEIN;
+            }
+        }
+        handelShowCart();
+
     }
-    handelShowCart();
-
-}
 
 
 
@@ -4866,207 +4883,207 @@ export default function App() {
 
 
 
-const enAndDisable = (e) => {
-    setdisabled(true);
-}
-
-const handelOpenCartWin = () => {
-    setisCartWinVisible(!isCartWinVisible);
-    setshowCart(true);
-    // setshowCart(false);
-}
-const compare = (a, b) => {
-    if (a.eligibility < b.eligibility) {
-        return -1;
+    const enAndDisable = (e) => {
+        setdisabled(true);
     }
-    if (a.eligibility > b.eligibility) {
-        return 1;
+
+    const handelOpenCartWin = () => {
+        setisCartWinVisible(!isCartWinVisible);
+        setshowCart(true);
+        // setshowCart(false);
     }
-    return 0;
-}
+    const compare = (a, b) => {
+        if (a.eligibility < b.eligibility) {
+            return -1;
+        }
+        if (a.eligibility > b.eligibility) {
+            return 1;
+        }
+        return 0;
+    }
 
-const handelShowCart = () => {
+    const handelShowCart = () => {
 
-    let l_quantity = quantity;
-    setcart(cart.sort(compare));
-    const db = cart.reduce((objectsByKeyValue, obj) => {
-        const value = obj.eligibility;
-        objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
-        return objectsByKeyValue;
-    }, {});
+        let l_quantity = quantity;
+        setcart(cart.sort(compare));
+        const db = cart.reduce((objectsByKeyValue, obj) => {
+            const value = obj.eligibility;
+            objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+            return objectsByKeyValue;
+        }, {});
 
 
-    const arrry = Object.keys(db).map((category, i) => (
-        <div key={i} className="product-cart">
-            <h3>{Eligibility.filter(a => a.CATEGORY === category)[0].YDESC}</h3>
-            {
-                db[category].map(product =>
-                    <li className="cart-item" key={product.name}>
-                        <a
-                            className="product-remove"
-                            href="#"
-                            onClick={(e) => handleRemoveProduct(e, product.id, product.matnr, product.eligibility)}
-                        >
-                            X
-                        </a>
-                        <div onMouseOver={enAndDisable} className="product-total displayd">
-
-                        </div>
-                        <div className="product-info">
-                            <p className="product-name">{product.name}</p>
+        const arrry = Object.keys(db).map((category, i) => (
+            <div key={i} className="product-cart">
+                <h3>{Eligibility.filter(a => a.CATEGORY === category)[0].YDESC}</h3>
+                {
+                    db[category].map(product =>
+                        <li className="cart-item" key={product.name}>
+                            <a
+                                className="product-remove"
+                                href="#"
+                                onClick={(e) => handleRemoveProduct(e, product.id, product.matnr, product.eligibility)}
+                            >
+                                X
+                            </a>
                             <div onMouseOver={enAndDisable} className="product-total displayd">
-                                <div onMouseOver={handelsetProductID(product.id)} className="notDisplay">
-                                    <Counter
-                                        onMouseOver={handelsetProductID}
-                                        productQuantity={product.quantity}
-                                        handleAddQuantity={handleAddQuantity}
-                                        updateQuantity={updateQuantity}
-                                        increment={(e) => increment(e, product)}
-                                        decrement={(e) => decrement(e, product)}
-                                    />
 
-                                </div>
-                                <div className="IsDisplay">
-                                    <p className="quantity" disabled={(disabled) ? "disabled" : ""}>
-                                        {product.quantity} {product.quantity > 1 ? "יחידות" : "יחידה"}{" "}
-                                    </p>
-                                </div>
                             </div>
-                            {/* <p className="quantity" disabled={(disabled) ? "disabled" : ""}>
+                            <div className="product-info">
+                                <p className="product-name">{product.name}</p>
+                                <div onMouseOver={enAndDisable} className="product-total displayd">
+                                    <div onMouseOver={handelsetProductID(product.id)} className="notDisplay">
+                                        <Counter
+                                            onMouseOver={handelsetProductID}
+                                            productQuantity={product.quantity}
+                                            handleAddQuantity={handleAddQuantity}
+                                            updateQuantity={updateQuantity}
+                                            increment={(e) => increment(e, product)}
+                                            decrement={(e) => decrement(e, product)}
+                                        />
+
+                                    </div>
+                                    <div className="IsDisplay">
+                                        <p className="quantity" disabled={(disabled) ? "disabled" : ""}>
+                                            {product.quantity} {product.quantity > 1 ? "יחידות" : "יחידה"}{" "}
+                                        </p>
+                                    </div>
+                                </div>
+                                {/* <p className="quantity" disabled={(disabled) ? "disabled" : ""}>
 
                   {product.quantity}{" "} {product.quantity > 1 ? "יחידות" : "יחידה"}
                 </p> */}
-                            {product.eligibility !== 'A' && <p className="product-price">{product.price}{" ₪ "}</p>}
-                        </div>
-                        <div className="product-image-div">
-                            <img className="product-image" src={product.image} />
-                        </div>
+                                {product.eligibility !== 'A' && <p className="product-price">{product.price}{" ₪ "}</p>}
+                            </div>
+                            <div className="product-image-div">
+                                <img className="product-image" src={product.image} />
+                            </div>
 
-                    </li>
-                )
-            }
-        </div>
-    ));
-
-
+                        </li>
+                    )
+                }
+            </div>
+        ));
 
 
-    if (arrry.length <= 0) {
-        setview(<EmptyCart />);
-    } else {
-        setview(
-            <CSSTransitionGroup
-                transitionName="fadeIn"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}
-                component="div"
-                className="cart-items"
-            >
-                {/* {l_cartItems} */}
-                {arrry}
-            </CSSTransitionGroup>
-        );
+
+
+        if (arrry.length <= 0) {
+            setview(<EmptyCart />);
+        } else {
+            setview(
+                <CSSTransitionGroup
+                    transitionName="fadeIn"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
+                    component="div"
+                    className="cart-items"
+                >
+                    {/* {l_cartItems} */}
+                    {arrry}
+                </CSSTransitionGroup>
+            );
+        }
     }
-}
 
 
-return (
-    <Suspense fallback="loading">
-        <div className="container">
+    return (
+        <Suspense fallback="loading">
+            <div className="container">
 
-            {isSuccess && <CreateOrder
-                ReturnS={ReturnS}
-                Response1={Response1}
-                loading={loading}
-                CreateActive={CreateActive}
-                message={message}
-                ProductTable={ProductTable}
-                isSuccess={isSuccess}
-                closeCreateOrderModal={closeCreateOrderModal}
-            />}
-            <LogOut
-                setlogOut={setlogOut}
-                logOut={logOut}
-                closeLogOutModal={closeLogOutModal}
-                clearInformations={clearInformations}
-            />
-            <LogIn
-                lblError={lblError}
-                setlblError={setlblError}
-                logInActive={logInActive}
-                openLogInModal={openLogInModal}
-                closeLogInModal={closeLogInModal}
-                setEmployeeName={setEmployeeName}
-                UpdateEmployeeName={UpdateEmployeeName}
-                EmployeeName={EmployeeName}
-            />
-            {isCancelOrder &&
-                <CancelOrder
-                    handelCancelOrderNum={handelCancelOrderNum}
-                    closeCancelOrderModal={closeCancelOrderModal}
+                {isSuccess && <CreateOrder
+                    ReturnS={ReturnS}
+                    Response1={Response1}
+                    loading={loading}
+                    CreateActive={CreateActive}
+                    message={message}
+                    ProductTable={ProductTable}
+                    isSuccess={isSuccess}
+                    closeCreateOrderModal={closeCreateOrderModal}
+                />}
+                <LogOut
+                    setlogOut={setlogOut}
+                    logOut={logOut}
+                    closeLogOutModal={closeLogOutModal}
+                    clearInformations={clearInformations}
+                />
+                <LogIn
+                    lblError={lblError}
+                    setlblError={setlblError}
+                    logInActive={logInActive}
+                    openLogInModal={openLogInModal}
+                    closeLogInModal={closeLogInModal}
+                    setEmployeeName={setEmployeeName}
+                    UpdateEmployeeName={UpdateEmployeeName}
+                    EmployeeName={EmployeeName}
+                />
+                {isCancelOrder &&
+                    <CancelOrder
+                        handelCancelOrderNum={handelCancelOrderNum}
+                        closeCancelOrderModal={closeCancelOrderModal}
+                        isCancelOrder={isCancelOrder}
+                    />
+                }
+                <Header
+                    handleClearSearch={handleClearSearch}
+                    isPower={isPower}
+                    setisPower={setisPower}
+                    isSuccess={isSuccess}
                     isCancelOrder={isCancelOrder}
-                />
-            }
-            <Header
-                handleClearSearch={handleClearSearch}
-                isPower={isPower}
-                setisPower={setisPower}
-                isSuccess={isSuccess}
-                isCancelOrder={isCancelOrder}
-                setlogOut={setlogOut}
-                categoriesList={categoriesList}
-                showCart={showCart}
-                setshowCart={setshowCart}
-                EligibilitiesPageActive={EligibilitiesPageActive}
-                setEligibilitiesPageActive={setEligibilitiesPageActive}
-                view={view}
-                employees={employees}
-                createOrder={createOrder}
-                Eligibility={Eligibility}
-                handelShowCart={handelShowCart}
-                // isCancelOrder={isCancelOrder}
-                handelCancelOrder={handelCancelOrder}
-                EmployeeName={EmployeeName}
-                setEmployeeName={UpdateEmployeeName}
-                cartBounce={cartBounce}
-                total={totalAmount}
-                totalItems={totalItems}
-                cartItems={cart}
-                handleRemoveProduct={handleRemoveProduct}
-                handleSearch={handleSearch}
-                handleMobileSearch={handleMobileSearch}
-                handleCategory={handleCategory}
-                categoryTerm={categories}
-                swSearchingForSearch={swSearchingFor}
-                handelswSearchingFor={handelswSearchingFor}
-                updateQuantity={updateQuantity}
-                productQuantity={quantity}
-                addToCart={handleAddToCart}
-                AddQuantity={handleAddToCart}
-                increment={increment}
-                decrement={decrement}
-                handelOpenCartWin={handelOpenCartWin}
-                logInActive={logInActive}
-                isEnableBTN={isEnableBTN}
-                handelsetProductID={handelsetProductID}
-            />
-
-            {isCartWinVisible &&
-                <Cart
-                    Eligibility={Eligibility}
-                    createOrder={createOrder}
-                    total={totalAmount}
+                    setlogOut={setlogOut}
+                    categoriesList={categoriesList}
+                    showCart={showCart}
+                    setshowCart={setshowCart}
+                    EligibilitiesPageActive={EligibilitiesPageActive}
+                    setEligibilitiesPageActive={setEligibilitiesPageActive}
                     view={view}
-                    setview={setview}
-                    disabled={disabled}
-                    enAndDisable={enAndDisable}
-                    cart={cart}
-                    handelOpenCartWin={handelOpenCartWin}
-                    isCartWinVisible={isCartWinVisible}
+                    employees={employees}
+                    createOrder={createOrder}
+                    Eligibility={Eligibility}
+                    handelShowCart={handelShowCart}
+                    // isCancelOrder={isCancelOrder}
+                    handelCancelOrder={handelCancelOrder}
+                    EmployeeName={EmployeeName}
+                    setEmployeeName={UpdateEmployeeName}
+                    cartBounce={cartBounce}
+                    total={totalAmount}
+                    totalItems={totalItems}
+                    cartItems={cart}
                     handleRemoveProduct={handleRemoveProduct}
+                    handleSearch={handleSearch}
+                    handleMobileSearch={handleMobileSearch}
+                    handleCategory={handleCategory}
+                    categoryTerm={categories}
+                    swSearchingForSearch={swSearchingFor}
+                    handelswSearchingFor={handelswSearchingFor}
+                    updateQuantity={updateQuantity}
+                    productQuantity={quantity}
+                    addToCart={handleAddToCart}
+                    AddQuantity={handleAddToCart}
+                    increment={increment}
+                    decrement={decrement}
+                    handelOpenCartWin={handelOpenCartWin}
+                    logInActive={logInActive}
+                    isEnableBTN={isEnableBTN}
+                    handelsetProductID={handelsetProductID}
                 />
-            }
-            {/* {!isCartWinVisible && */}
+
+                {isCartWinVisible &&
+                    <Cart
+                        Eligibility={Eligibility}
+                        createOrder={createOrder}
+                        total={totalAmount}
+                        view={view}
+                        setview={setview}
+                        disabled={disabled}
+                        enAndDisable={enAndDisable}
+                        cart={cart}
+                        handelOpenCartWin={handelOpenCartWin}
+                        isCartWinVisible={isCartWinVisible}
+                        handleRemoveProduct={handleRemoveProduct}
+                    />
+                }
+                {/* {!isCartWinVisible && */}
                 <Products
                     ClearChoose={ClearChoose}
                     setClearChoose={setClearChoose}
@@ -5089,14 +5106,14 @@ return (
                     handleCategory={handleCategory}
                 />
                 {/* } */}
-            <QuickView
-                product={quickViewProduct}
-                openModal={modalActive}
-                closeModal={closeModal}
-            />
-        </div>
-    </Suspense>
-);
+                <QuickView
+                    product={quickViewProduct}
+                    openModal={modalActive}
+                    closeModal={closeModal}
+                />
+            </div>
+        </Suspense>
+    );
 }
 
 
