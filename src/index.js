@@ -4625,7 +4625,8 @@ export default function App() {
             let response = Catalog.filter(product => product.EAN11.includes(event) || product.MAKTX.includes(event));
 
             //setCatalog(response)
-            setproducts(response);
+           setproducts(response);
+           setisPower(true);
 
         }
         else {

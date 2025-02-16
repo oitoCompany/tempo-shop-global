@@ -250,6 +250,7 @@ const handleSearchClick = () => {
                   <input
                     type="search"
                     ref={searchBox}
+                    tabIndex={0}
                     placeholder="חיפוש פריט"
                     className="search-keyword"
                    // onChange={(e) => handleSearch(e)}
@@ -258,11 +259,18 @@ const handleSearchClick = () => {
                     className="search-button"
                     src={searchIMG}
                     type="submit"
+                  //  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault(); // Prevent default behavior (e.g., scrolling)
+                        handleSearchClick(); // Do something else
+                    }
+                }}
                     onClick={handleSearchClick}
                //    onClick={(e) => handleSearch(e)}
                     // onClick={(e) => handleSubmit(e)}
                   >
-                    <img className="searchIMG" src={searchIMG}></img>
+                    <img className="searchIMG"  tabIndex={0} src={searchIMG}></img>
                   </div>
                 </form>
               </div>
