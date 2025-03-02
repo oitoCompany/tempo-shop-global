@@ -253,6 +253,12 @@ const handleSearchClick = () => {
                     tabIndex={0}
                     placeholder="חיפוש פריט"
                     className="search-keyword"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault(); // Prevent default behavior (e.g., scrolling)
+                          handleSearchClick(); // Do something else
+                      }
+                  }}
                    // onChange={(e) => handleSearch(e)}
                   />
                   <div

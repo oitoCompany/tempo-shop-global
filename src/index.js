@@ -4625,8 +4625,8 @@ export default function App() {
             let response = Catalog.filter(product => product.EAN11.includes(event) || product.MAKTX.includes(event));
 
             //setCatalog(response)
-           setproducts(response);
-           setisPower(true);
+            setproducts(response);
+            setisPower(true);
 
         }
         else {
@@ -4681,11 +4681,11 @@ export default function App() {
         }
         cartItem.sort(a => a.eligibility);
         setcart(cartItem.sort(compare));
-        setcartBounce(true);
+       setcartBounce(true);
 
         setTimeout(
             function () {
-                setcartBounce(false);;;
+               setcartBounce(false);
                 setquantity(1);
             },
             1000
@@ -5105,6 +5105,8 @@ export default function App() {
                     updateQuantity={updateQuantity}
                     openModal={openModal}
                     handleCategory={handleCategory}
+                    isPower={isPower}
+                    setisPower={setisPower}
                 />
                 {/* } */}
                 <QuickView

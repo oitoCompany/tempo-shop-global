@@ -25,6 +25,8 @@ export default function Products(props) {
     ClearChoose,
     setClearChoose,
     Catalog,
+    isPower,
+    setisPower,
     openModal
   } = props;
   const [IsFromKCategories, setIsFromKCategories] = useState(true);
@@ -154,6 +156,7 @@ const productsData = useMemo(() => {
       Eligibility={Eligibility}
       handelShowCart={handelShowCart}
       matnr={product.MATNR}
+      kepin={product.KPEIN}
       price={product.YPRICE_NETO_TAX}
       name={product.MAKTX}
       image={product.YFILE}
@@ -182,8 +185,8 @@ const productsData = useMemo(() => {
 
 // Determine the view based on the state of filtered products
 const view = useMemo(() => {
-  if (filteredProducts.length === 0 && searchTerm) return <NoResults />;
-  if (filteredProducts.length === 0) return <LoadingProducts />;
+  if (filteredProducts.length === 0 ) {return <NoResults />};
+ //if (filteredProducts.length === 0 && searchTerm == '') return <LoadingProducts />;
   return (
     <CSSTransitionGroup
       transitionName="fadeIn"
