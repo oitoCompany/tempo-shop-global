@@ -4624,16 +4624,34 @@ export default function App() {
         if (event !== "") {
             let response = Catalog.filter(product => product.EAN11.includes(event) || product.MAKTX.includes(event));
 
-            //setCatalog(response)
-            setproducts(response);
+            console.log(response ,cart);
+          
+                let index = cart.findIndex(x => x.matnr == response[0].MATNR);
+                //  ? cart.findIndex(x => x.matnr == response[0].MATNR) : -1;
+                // 
+                // if(count > response[0].KPEIN) {
+                if (index !== -1) {
+                  
+                   let count = Eligibility.filter(a => a.CATEGORY ===  cart[index].eligibility)[0].QTY;
+                   if(count >= response[0].KPEIN) { 
+                    cart[index].quantity++;  
+                   setcart(cart);
+                   sumTotalAmount(cart);
+                   handelShowCart();
+                   Eligibilityinde('add', cart[index]);
+                   }
+               }
+            
+            // }
+          setproducts(response);
+         
             setisPower(true);
-
         }
         else {
             //setCatalog(data);
             setproducts(data);
         }
-
+    
         // const s = {
         //     CATEGORY: [],
         //     SEARCH: term
