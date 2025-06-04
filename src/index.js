@@ -4826,7 +4826,7 @@ export default function App() {
         e.preventDefault();
         let count = Eligibility.filter(a => a.CATEGORY === p.eligibility)[0].QTY;
         let index = cart.findIndex(x => x.id === p.id);
-        if (index >= 0 && count >= 1) {
+        if (index >= 0 && count >= cart[index].kepin) {
             cart[index].quantity++;
             sumTotalAmount(cart);
             setcart(cart);
@@ -4884,7 +4884,7 @@ export default function App() {
             let index = cart.findIndex(x => x.id == product.id && x.eligibility === product.eligibility);
             let quentity = cart[index].quantity;
             // Eligibility.filter(a => a.CATEGORY === cart[index].eligibility)[0].QTY += Number(Catalog[Object.keys(Catalog).filter(a => Catalog[a].EAN11 === product.id && Catalog[a].MATNR == product.matnr)].KPEIN * quentity);
-            if (empzakot - 1 > count) {
+            if (countTo  - CurrentProduct_l.KPEIN > count) {
                 Eligibility.filter(a => a.CATEGORY === Text)[0].QTY += CurrentProduct_l.KPEIN;
             }
         }
